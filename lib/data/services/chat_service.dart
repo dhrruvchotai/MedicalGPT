@@ -5,28 +5,15 @@ import '../models/chat_message_model.dart';
 import '../models/chat_history_model.dart';
 import '../providers/hive_provider.dart';
 import '../services/api_service.dart';
-import '../../core/constants/app_strings.dart';
+import '../services/biomistral_service.dart';
 import '../../core/utils/formatters.dart';
 
 class ChatService extends GetxService {
   final ApiService _apiService = Get.find<ApiService>();
+  final BioMistralService _bioMistralService = Get.find<BioMistralService>();
   final _uuid = const Uuid();
 
   String? _currentChatId;
-
-  // Placeholder AI responses for when real API isn't connected
-  final List<String> _placeholderResponses = [
-    AppStrings.defaultAiResponse,
-    'Based on your question, I can provide some general health information. '
-        'However, please remember that only a licensed medical professional can give you personalized advice.',
-    'That\'s an important health question. While I can share general information, '
-        'I strongly recommend consulting your doctor for a proper diagnosis and treatment plan.',
-    'Thank you for sharing that. From a general medical perspective, '
-        'this is something worth discussing with your healthcare provider. '
-        'Would you like me to explain more about this topic?',
-  ];
-
-  int _responseIndex = 0;
 
   /// Start or continue a chat session
   void startNewChat() {
@@ -38,7 +25,7 @@ class ChatService extends GetxService {
     return _currentChatId!;
   }
 
-  /// Send a text message and get AI response
+  /// Send a text message and get AI response from BioMistral-7B
   Future<List<ChatMessageModel>> sendTextMessage(String text) async {
     final userMsg = ChatMessageModel.user(
       id: _uuid.v4(),
@@ -46,12 +33,14 @@ class ChatService extends GetxService {
     );
     await HiveProvider.saveMessage(userMsg);
 
-    // Simulate AI thinking delay
-    await Future.delayed(const Duration(milliseconds: 1500));
-
-    final aiResponse =
-        _placeholderResponses[_responseIndex % _placeholderResponses.length];
-    _responseIndex++;
+    // Call BioMistral-7B via HuggingFace Inference API
+    String aiResponse;
+    try {
+      aiResponse = await _bioMistralService.askMedicalQuery(text);
+    } catch (e) {
+      aiResponse = 'Sorry, I encountered an error while processing your '
+          'request. Please try again later.';
+    }
 
     final aiMsg = ChatMessageModel.ai(
       id: _uuid.v4(),

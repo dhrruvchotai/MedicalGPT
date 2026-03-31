@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'app/routes/app_pages.dart';
 import 'app/routes/app_routes.dart';
 import 'app/themes/app_theme.dart';
@@ -8,6 +9,7 @@ import 'data/providers/hive_provider.dart';
 import 'data/services/storage_service.dart';
 import 'data/services/auth_service.dart';
 import 'data/services/api_service.dart';
+import 'data/services/biomistral_service.dart';
 import 'data/services/chat_service.dart';
 
 Future<void> main() async {
@@ -27,6 +29,9 @@ Future<void> main() async {
     DeviceOrientation.portraitDown,
   ]);
 
+  // Load environment variables
+  await dotenv.load(fileName: '.env');
+
   // Init Hive
   await HiveProvider.init();
 
@@ -42,6 +47,7 @@ Future<void> main() async {
 
   Get.put<ApiService>(ApiService(), permanent: true);
   Get.put<AuthService>(AuthService(), permanent: true);
+  Get.put<BioMistralService>(BioMistralService(), permanent: true);
   Get.put<ChatService>(ChatService(), permanent: true);
 
   final isDarkMode = storageService.isDarkMode;
