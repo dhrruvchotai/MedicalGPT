@@ -13,6 +13,7 @@ import '../../../core/constants/app_sizes.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../core/widgets/typing_indicator.dart';
 import '../../drawer/view/drawer_view.dart';
+import '../../drawer/controller/drawer_controller.dart' as app_drawer;
 import 'widgets/chat_bubble.dart';
 import 'widgets/attachment_popup.dart';
 import 'widgets/empty_chat_state.dart';
@@ -29,6 +30,14 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       drawer: const AppDrawer(),
+      onDrawerChanged: (isOpened) {
+        if (isOpened) {
+          try {
+            final drawerCtrl = Get.find<app_drawer.DrawerController>();
+            drawerCtrl.loadHistory();
+          } catch (_) {}
+        }
+      },
       body: SafeArea(
         child: Column(
           children: [

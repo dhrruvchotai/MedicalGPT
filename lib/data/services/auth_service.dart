@@ -82,26 +82,10 @@ class AuthService extends GetxService {
       }
     }
 
-    // Auto-create for demo purposes
-    final id = _uuid.v4();
-    final user = UserModel(
-      id: id,
-      name: email.split('@').first,
-      email: email,
-      joinedDate: DateTime.now(),
+    // Email not found — reject login
+    return AuthResult.failure(
+      'This email does not exist. Please create a new account.',
     );
-    _mockUsers[key] = {
-      'id': id,
-      'name': user.name,
-      'password': password,
-      'joinedDate': DateTime.now().toIso8601String(),
-    };
-    await _persistUsersDb();
-    
-    currentUser.value = user;
-    isLoggedIn.value = true;
-    await _persistUser(user);
-    return AuthResult.success(user);
   }
 
   /// Mock Sign Up

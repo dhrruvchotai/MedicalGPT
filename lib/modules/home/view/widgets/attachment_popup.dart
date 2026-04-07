@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 import '../../../../../core/constants/app_colors.dart';
 import '../../../../../core/constants/app_sizes.dart';
@@ -19,7 +20,7 @@ class AttachmentPopup extends GetView<HomeController> {
 
       final items = [
         _AttachItemData(
-          svgPath: 'assets/svg/icon_skin.svg',
+          iconData: LucideIcons.scanLine,
           label: AppStrings.analyzeSkin,
           subtitle: 'Upload a photo for skin analysis',
           isComingSoon: false,
@@ -44,11 +45,12 @@ class AttachmentPopup extends GetView<HomeController> {
           onTap: () {},
         ),
         _AttachItemData(
-          svgPath: 'assets/svg/icon_chat.svg',
-          label: AppStrings.viewHistory,
-          subtitle: 'Browse past conversations',
+          iconData: LucideIcons.fileSearch,
+          label: AppStrings.medicalOcr,
+          subtitle: 'Scan prescriptions & medical documents',
           isComingSoon: false,
           onTap: () {
+            // TODO: Implement Medical OCR
             controller.closeAttachmentMenu();
           },
         ),
@@ -146,14 +148,16 @@ class AttachmentPopup extends GetView<HomeController> {
 // ─── Data model ───────────────────────────────────────────────────────────────
 
 class _AttachItemData {
-  final String svgPath;
+  final String? svgPath;
+  final IconData? iconData;
   final String label;
   final String subtitle;
   final bool isComingSoon;
   final VoidCallback onTap;
 
   const _AttachItemData({
-    required this.svgPath,
+    this.svgPath,
+    this.iconData,
     required this.label,
     required this.subtitle,
     required this.isComingSoon,
@@ -219,11 +223,17 @@ class _AttachListItemState extends State<_AttachListItem> {
                       ),
                     ),
                     child: Center(
-                      child: SvgPicture.asset(
-                        item.svgPath,
-                        width: 20,
-                        height: 20,
-                      ),
+                      child: item.iconData != null
+                          ? Icon(
+                              item.iconData,
+                              size: 20,
+                              color: AppColors.primary,
+                            )
+                          : SvgPicture.asset(
+                              item.svgPath!,
+                              width: 20,
+                              height: 20,
+                            ),
                     ),
                   ),
 

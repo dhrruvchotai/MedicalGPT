@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import '../controller/onboarding_controller.dart';
+
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
 import '../../../core/constants/app_strings.dart';
 import '../../../core/widgets/animated_press_button.dart';
+import '../controller/onboarding_controller.dart';
 
 class OnboardingView extends GetView<OnboardingController> {
   const OnboardingView({super.key});
@@ -68,8 +69,7 @@ class OnboardingView extends GetView<OnboardingController> {
                                   final isActive =
                                       controller.currentPage.value == i;
                                   return AnimatedContainer(
-                                    duration:
-                                        const Duration(milliseconds: 300),
+                                    duration: const Duration(milliseconds: 300),
                                     margin: const EdgeInsets.only(right: 6),
                                     width: isActive ? 20 : 6,
                                     height: 6,
@@ -125,8 +125,9 @@ class _Page1State extends State<_Page1> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _ctrl = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 800))
-      ..forward();
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    )..forward();
     _fade = CurvedAnimation(parent: _ctrl, curve: Curves.easeOut);
   }
 
@@ -187,14 +188,31 @@ class _Page2State extends State<_Page2> with SingleTickerProviderStateMixin {
   late AnimationController _ctrl;
 
   final List<_FeatureItem> features = const [
-    _FeatureItem('assets/svg/icon_skin.svg', AppStrings.featureSkinTitle,
-        AppStrings.featureSkinDesc, false),
-    _FeatureItem('assets/svg/icon_lung.svg', AppStrings.featureChestTitle,
-        AppStrings.featureChestDesc, true),
-    _FeatureItem('assets/svg/icon_chat.svg', AppStrings.featureChatTitle,
-        AppStrings.featureChatDesc, false),
-    _FeatureItem('assets/svg/icon_document.svg', AppStrings.featureOcrTitle,
-        AppStrings.featureOcrDesc, true),
+    _FeatureItem(
+      null,
+      AppStrings.featureSkinTitle,
+      AppStrings.featureSkinDesc,
+      false,
+      iconData: LucideIcons.scanLine,
+    ),
+    _FeatureItem(
+      'assets/svg/icon_lung.svg',
+      AppStrings.featureChestTitle,
+      AppStrings.featureChestDesc,
+      false,
+    ),
+    _FeatureItem(
+      'assets/svg/icon_chat.svg',
+      AppStrings.featureChatTitle,
+      AppStrings.featureChatDesc,
+      false,
+    ),
+    _FeatureItem(
+      'assets/svg/icon_document.svg',
+      AppStrings.featureOcrTitle,
+      AppStrings.featureOcrDesc,
+      true,
+    ),
   ];
 
   @override
@@ -261,11 +279,13 @@ class _Page2State extends State<_Page2> with SingleTickerProviderStateMixin {
 }
 
 class _FeatureItem {
-  final String svgAsset;
+  final String? svgAsset;
+  final IconData? iconData;
   final String title;
   final String desc;
   final bool isComingSoon;
-  const _FeatureItem(this.svgAsset, this.title, this.desc, this.isComingSoon);
+  const _FeatureItem(this.svgAsset, this.title, this.desc, this.isComingSoon,
+      {this.iconData});
 }
 
 class _FeatureCard extends StatelessWidget {
@@ -284,7 +304,14 @@ class _FeatureCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          SvgPicture.asset(feature.svgAsset, width: 28, height: 28),
+          if (feature.iconData != null)
+            Icon(
+              feature.iconData,
+              size: 28,
+              color: AppColors.primary,
+            )
+          else
+            SvgPicture.asset(feature.svgAsset!, width: 28, height: 28),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -348,8 +375,9 @@ class _Page3State extends State<_Page3> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _ctrl = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 600))
-      ..forward();
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+    )..forward();
     _fade = CurvedAnimation(parent: _ctrl, curve: Curves.easeOut);
   }
 
@@ -377,8 +405,11 @@ class _Page3State extends State<_Page3> with SingleTickerProviderStateMixin {
                 borderRadius: BorderRadius.circular(24),
               ),
               child: const Center(
-                child: Icon(LucideIcons.shieldCheck,
-                    size: 40, color: AppColors.primary),
+                child: Icon(
+                  LucideIcons.shieldCheck,
+                  size: 40,
+                  color: AppColors.primary,
+                ),
               ),
             ),
             const SizedBox(height: AppSizes.paddingL),

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import '../controller/auth_controller.dart';
+
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
 import '../../../core/constants/app_strings.dart';
+import '../../../core/utils/validators.dart';
 import '../../../core/widgets/animated_press_button.dart';
 import '../../../core/widgets/app_text_field.dart';
-import '../../../core/utils/validators.dart';
+import '../controller/auth_controller.dart';
 
 class SignUpView extends GetView<AuthController> {
   const SignUpView({super.key});
@@ -17,8 +17,12 @@ class SignUpView extends GetView<AuthController> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final textPrimary = isDark ? AppColors.darkTextPrimary : AppColors.textPrimary;
-    final textSecondary = isDark ? AppColors.darkTextSecondary : AppColors.textSecondary;
+    final textPrimary = isDark
+        ? AppColors.darkTextPrimary
+        : AppColors.textPrimary;
+    final textSecondary = isDark
+        ? AppColors.darkTextSecondary
+        : AppColors.textSecondary;
     final bgColor = isDark ? AppColors.darkBackground : AppColors.background;
     return Scaffold(
       appBar: AppBar(
@@ -31,7 +35,9 @@ class SignUpView extends GetView<AuthController> {
         title: Text(
           AppStrings.createAccount,
           style: GoogleFonts.inter(
-              fontWeight: FontWeight.w600, color: textPrimary),
+            fontWeight: FontWeight.w600,
+            color: textPrimary,
+          ),
         ),
       ),
       body: SafeArea(
@@ -67,8 +73,11 @@ class SignUpView extends GetView<AuthController> {
                   keyboardType: TextInputType.name,
                   textInputAction: TextInputAction.next,
                   validator: Validators.validateFullName,
-                  prefixIcon: const Icon(LucideIcons.user,
-                      size: 18, color: AppColors.textSecondary),
+                  prefixIcon: const Icon(
+                    LucideIcons.user,
+                    size: 18,
+                    color: AppColors.textSecondary,
+                  ),
                 ),
                 const SizedBox(height: AppSizes.paddingM),
                 // Email
@@ -79,8 +88,11 @@ class SignUpView extends GetView<AuthController> {
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
                   validator: Validators.validateEmail,
-                  prefixIcon: const Icon(LucideIcons.mail,
-                      size: 18, color: AppColors.textSecondary),
+                  prefixIcon: const Icon(
+                    LucideIcons.mail,
+                    size: 18,
+                    color: AppColors.textSecondary,
+                  ),
                 ),
                 const SizedBox(height: AppSizes.paddingM),
                 // Password + Strength
@@ -93,8 +105,11 @@ class SignUpView extends GetView<AuthController> {
                     textInputAction: TextInputAction.next,
                     onChanged: controller.onPasswordChanged,
                     validator: Validators.validatePassword,
-                    prefixIcon: const Icon(LucideIcons.lock,
-                        size: 18, color: AppColors.textSecondary),
+                    prefixIcon: const Icon(
+                      LucideIcons.lock,
+                      size: 18,
+                      color: AppColors.textSecondary,
+                    ),
                     suffixIcon: IconButton(
                       icon: Icon(
                         controller.isSignUpPasswordVisible.value
@@ -121,19 +136,20 @@ class SignUpView extends GetView<AuthController> {
                                 backgroundColor: AppColors.surface,
                                 valueColor: AlwaysStoppedAnimation<Color>(
                                   _strengthColor(
-                                      controller.passwordStrength.value),
+                                    controller.passwordStrength.value,
+                                  ),
                                 ),
                                 minHeight: 4,
                               ),
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              _strengthLabel(
-                                  controller.passwordStrength.value),
+                              _strengthLabel(controller.passwordStrength.value),
                               style: GoogleFonts.inter(
                                 fontSize: AppSizes.labelSmall,
                                 color: _strengthColor(
-                                    controller.passwordStrength.value),
+                                  controller.passwordStrength.value,
+                                ),
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -151,9 +167,14 @@ class SignUpView extends GetView<AuthController> {
                     obscureText: !controller.isConfirmPasswordVisible.value,
                     textInputAction: TextInputAction.done,
                     validator: (v) => Validators.validateConfirmPassword(
-                        v, controller.signUpPasswordController.text),
-                    prefixIcon: const Icon(LucideIcons.lock,
-                        size: 18, color: AppColors.textSecondary),
+                      v,
+                      controller.signUpPasswordController.text,
+                    ),
+                    prefixIcon: const Icon(
+                      LucideIcons.lock,
+                      size: 18,
+                      color: AppColors.textSecondary,
+                    ),
                     suffixIcon: IconButton(
                       icon: Icon(
                         controller.isConfirmPasswordVisible.value
@@ -178,7 +199,8 @@ class SignUpView extends GetView<AuthController> {
                             controller.agreedToTerms.value = v ?? false,
                         activeColor: AppColors.primary,
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4)),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
                       ),
                       Expanded(
                         child: Padding(
@@ -206,13 +228,15 @@ class SignUpView extends GetView<AuthController> {
                     margin: const EdgeInsets.only(bottom: 12),
                     decoration: BoxDecoration(
                       color: AppColors.error.withValues(alpha: 0.08),
-                      borderRadius:
-                          BorderRadius.circular(AppSizes.radiusSmall),
+                      borderRadius: BorderRadius.circular(AppSizes.radiusSmall),
                     ),
                     child: Row(
                       children: [
-                        const Icon(LucideIcons.alertCircle,
-                            color: AppColors.error, size: 16),
+                        const Icon(
+                          LucideIcons.alertCircle,
+                          color: AppColors.error,
+                          size: 16,
+                        ),
                         const SizedBox(width: 8),
                         Expanded(
                           child: Text(
@@ -243,67 +267,66 @@ class SignUpView extends GetView<AuthController> {
                 ),
                 const SizedBox(height: AppSizes.paddingL),
                 // Divider
-                Row(
-                  children: [
-                    Expanded(child: Divider(color: Theme.of(context).dividerColor)),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: Text(
-                        AppStrings.or,
-                        style: GoogleFonts.inter(
-                          color: textSecondary,
-                          fontSize: AppSizes.bodySmall,
-                        ),
-                      ),
-                    ),
-                    Expanded(child: Divider(color: Theme.of(context).dividerColor)),
-                  ],
-                ),
-                const SizedBox(height: AppSizes.paddingL),
-                // Google Sign Up
-                Obx(
-                  () => AnimatedPressButton(
-                    onPressed: controller.signInWithGoogle,
-                    isLoading: controller.isLoading.value,
-                    backgroundColor: Colors.transparent,
-                    child: Container(
-                      width: double.infinity,
-                      height: 52,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: AppColors.border),
-                        borderRadius:
-                            BorderRadius.circular(AppSizes.radiusButton),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                        'assets/svg/google_logo.svg',
-                        width: 22,
-                        height: 22,
-                      ),
-                          const SizedBox(width: 10),
-                          Text(
-                            AppStrings.continueWithGoogle,
-                            style: GoogleFonts.inter(
-                              fontWeight: FontWeight.w500,
-                              color: textPrimary,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: AppSizes.paddingL),
+                // Row(
+                //   children: [
+                //     Expanded(child: Divider(color: Theme.of(context).dividerColor)),
+                //     Padding(
+                //       padding: const EdgeInsets.symmetric(horizontal: 12),
+                //       child: Text(
+                //         AppStrings.or,
+                //         style: GoogleFonts.inter(
+                //           color: textSecondary,
+                //           fontSize: AppSizes.bodySmall,
+                //         ),
+                //       ),
+                //     ),
+                //     Expanded(child: Divider(color: Theme.of(context).dividerColor)),
+                //   ],
+                // ),
+                // const SizedBox(height: AppSizes.paddingL),
+                // // Google Sign Up
+                // Obx(
+                //   () => AnimatedPressButton(
+                //     onPressed: controller.signInWithGoogle,
+                //     isLoading: controller.isLoading.value,
+                //     backgroundColor: Colors.transparent,
+                //     child: Container(
+                //       width: double.infinity,
+                //       height: 52,
+                //       decoration: BoxDecoration(
+                //         border: Border.all(color: AppColors.border),
+                //         borderRadius:
+                //             BorderRadius.circular(AppSizes.radiusButton),
+                //       ),
+                //       child: Row(
+                //         mainAxisAlignment: MainAxisAlignment.center,
+                //         children: [
+                //           SvgPicture.asset(
+                //         'assets/svg/google_logo.svg',
+                //         width: 22,
+                //         height: 22,
+                //       ),
+                //           const SizedBox(width: 10),
+                //           Text(
+                //             AppStrings.continueWithGoogle,
+                //             style: GoogleFonts.inter(
+                //               fontWeight: FontWeight.w500,
+                //               color: textPrimary,
+                //             ),
+                //           ),
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                // const SizedBox(height: AppSizes.paddingL),
                 // Sign In link
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       AppStrings.hasAccount,
-                      style:
-                          GoogleFonts.inter(color: textSecondary),
+                      style: GoogleFonts.inter(color: textSecondary),
                     ),
                     GestureDetector(
                       onTap: controller.goToSignIn,

@@ -215,7 +215,7 @@ class AppDrawer extends GetView<DrawerController> {
                                       color: AppColors.textSecondary,
                                     ),
                                   ),
-                                  onTap: () => Get.back(),
+                                  onTap: () => controller.openChat(chat.id),
                                   trailing: IconButton(
                                     icon: const Icon(LucideIcons.trash2,
                                         size: 16,
@@ -255,22 +255,7 @@ class AppDrawer extends GetView<DrawerController> {
               label: AppStrings.about,
               onTap: () {
                 Get.back();
-                Get.dialog(
-                  AlertDialog(
-                    title: const Text('About MedicalGPT'),
-                    content: Text(
-                      'MedicalGPT v1.0.0\nA family of medical AI models.\n\n${AppStrings.onboardingDisclaimer}',
-                      style: GoogleFonts.inter(
-                          fontSize: AppSizes.bodySmall),
-                    ),
-                    actions: [
-                      TextButton(
-                        onPressed: Get.back,
-                        child: const Text('Close'),
-                      ),
-                    ],
-                  ),
-                );
+                Get.toNamed(AppRoutes.about);
               },
             ),
             const SizedBox(height: AppSizes.paddingS),

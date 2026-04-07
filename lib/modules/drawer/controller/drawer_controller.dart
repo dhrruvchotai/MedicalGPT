@@ -33,6 +33,21 @@ class DrawerController extends GetxController {
     }
   }
 
+  void openChat(String chatId) {
+    Get.back(); // Close drawer first
+    if (Get.currentRoute != AppRoutes.home) {
+      Get.offAllNamed(AppRoutes.home);
+      // After navigation, load the chat
+      Future.delayed(const Duration(milliseconds: 300), () {
+        final homeController = Get.find<HomeController>();
+        homeController.loadChat(chatId);
+      });
+    } else {
+      final homeController = Get.find<HomeController>();
+      homeController.loadChat(chatId);
+    }
+  }
+
   Future<void> deleteChat(String id) async {
     await _chatService.deleteChat(id);
     loadHistory();

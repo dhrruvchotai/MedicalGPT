@@ -49,6 +49,18 @@ class HomeController extends GetxController {
     isAttachmentOpen.value = false;
   }
 
+  /// Load a previously saved chat by its ID
+  void loadChat(String chatId) {
+    messages.clear();
+    _chatService.resumeChat(chatId);
+    final loadedMessages = _chatService.getMessagesForChat(chatId);
+    messages.addAll(loadedMessages);
+    textController.clear();
+    canSend.value = false;
+    isAttachmentOpen.value = false;
+    _scrollToBottom();
+  }
+
   Future<void> sendMessage() async {
     final text = textController.text.trim();
     if (text.isEmpty || isSending.value) return;

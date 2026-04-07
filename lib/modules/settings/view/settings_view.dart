@@ -7,6 +7,7 @@ import '../../profile/controller/profile_controller.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
 import '../../../core/constants/app_strings.dart';
+import '../../../app/routes/app_routes.dart';
 
 class SettingsView extends GetView<SettingsController> {
   const SettingsView({super.key});
@@ -79,7 +80,7 @@ class SettingsView extends GetView<SettingsController> {
               _LinkItem(
                 icon: LucideIcons.shieldCheck,
                 label: AppStrings.privacyPolicy,
-                onTap: () {},
+                onTap: () => Get.toNamed(AppRoutes.privacyPolicy),
                 isDark: isDark,
               ),
               Divider(

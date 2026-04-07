@@ -12,6 +12,8 @@ import '../../modules/auth/view/sign_up_view.dart';
 import '../../modules/home/view/home_view.dart';
 import '../../modules/profile/view/profile_view.dart';
 import '../../modules/settings/view/settings_view.dart';
+import '../../modules/about/view/about_view.dart';
+import '../../modules/privacy/view/privacy_policy_view.dart';
 import 'app_routes.dart';
 
 class AppPages {
@@ -64,6 +66,18 @@ class AppPages {
       name: AppRoutes.settings,
       page: () => const SettingsView(),
       binding: SettingsBinding(),
+      transition: Transition.rightToLeft,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+    GetPage(
+      name: AppRoutes.about,
+      page: () => const AboutView(),
+      transition: Transition.rightToLeft,
+      transitionDuration: const Duration(milliseconds: 300),
+    ),
+    GetPage(
+      name: AppRoutes.privacyPolicy,
+      page: () => const PrivacyPolicyView(),
       transition: Transition.rightToLeft,
       transitionDuration: const Duration(milliseconds: 300),
     ),

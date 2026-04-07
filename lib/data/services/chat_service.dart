@@ -20,6 +20,11 @@ class ChatService extends GetxService {
     _currentChatId = _uuid.v4();
   }
 
+  /// Resume an existing chat session by its ID
+  void resumeChat(String chatId) {
+    _currentChatId = chatId;
+  }
+
   String get currentChatId {
     _currentChatId ??= _uuid.v4();
     return _currentChatId!;

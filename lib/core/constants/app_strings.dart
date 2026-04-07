@@ -61,7 +61,7 @@ class AppStrings {
   static const String analyzeSkin = 'Analyze Skin Lesion';
   static const String chestXray = 'Chest X-Ray';
   static const String medicalReport = 'Read Report';
-  static const String viewHistory = 'View History';
+  static const String medicalOcr = 'Medical OCR';
   static const String comingSoon = 'Coming Soon';
 
   // AI Response Placeholders
@@ -105,6 +105,8 @@ class AppStrings {
       'Password must be at least 8 characters';
   static const String passwordMismatch = 'Passwords do not match';
   static const String nameRequired = 'Full name is required';
+  static const String emailNotFound =
+      'This email does not exist. Please create a new account.';
 
   // Feature Items (no emojis)
   static const String featureSkinTitle = 'Skin Lesion Classifier';

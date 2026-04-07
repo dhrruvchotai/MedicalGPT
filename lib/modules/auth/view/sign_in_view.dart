@@ -136,12 +136,12 @@ class _AnimatedSignInContentState extends State<_AnimatedSignInContent>
                 label: AppStrings.password,
                 obscureText: !widget.controller.isSignInPasswordVisible.value,
                 textInputAction: TextInputAction.done,
-              validator: (v) {
-                if (v == null || v.isEmpty) {
-                  return AppStrings.passwordRequired;
-                }
-                return null;
-              },
+                validator: (v) {
+                  if (v == null || v.isEmpty) {
+                    return AppStrings.passwordRequired;
+                  }
+                  return null;
+                },
                 prefixIcon: const Icon(
                   LucideIcons.lock,
                   size: 18,
@@ -227,59 +227,59 @@ class _AnimatedSignInContentState extends State<_AnimatedSignInContent>
             ),
             const SizedBox(height: AppSizes.paddingL),
             // Divider with "or"
-            Row(
-              children: [
-                Expanded(child: Divider(color: Theme.of(context).dividerColor)),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: Text(
-                    AppStrings.or,
-                    style: GoogleFonts.inter(
-                      color: textSecondary,
-                      fontSize: AppSizes.bodySmall,
-                    ),
-                  ),
-                ),
-                Expanded(child: Divider(color: Theme.of(context).dividerColor)),
-              ],
-            ),
-            const SizedBox(height: AppSizes.paddingL),
+            // Row(
+            //   children: [
+            //     Expanded(child: Divider(color: Theme.of(context).dividerColor)),
+            //     Padding(
+            //       padding: const EdgeInsets.symmetric(horizontal: 12),
+            //       child: Text(
+            //         AppStrings.or,
+            //         style: GoogleFonts.inter(
+            //           color: textSecondary,
+            //           fontSize: AppSizes.bodySmall,
+            //         ),
+            //       ),
+            //     ),
+            //     Expanded(child: Divider(color: Theme.of(context).dividerColor)),
+            //   ],
+            // ),
+            // const SizedBox(height: AppSizes.paddingL),
             // Google Sign In
-            Obx(
-              () => AnimatedPressButton(
-                onPressed: widget.controller.signInWithGoogle,
-                isLoading: widget.controller.isLoading.value,
-                backgroundColor: Colors.transparent,
-                child: Container(
-                  width: double.infinity,
-                  height: 52,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.border),
-                    borderRadius: BorderRadius.circular(AppSizes.radiusButton),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // Google "G" text as logo stand-in
-                      SvgPicture.asset(
-                        'assets/svg/google_logo.svg',
-                        width: 22,
-                        height: 22,
-                      ),
-                      const SizedBox(width: 10),
-                      Text(
-                        AppStrings.continueWithGoogle,
-                        style: GoogleFonts.inter(
-                          fontWeight: FontWeight.w500,
-                          color: textPrimary,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: AppSizes.paddingL),
+            // Obx(
+            //   () => AnimatedPressButton(
+            //     onPressed: widget.controller.signInWithGoogle,
+            //     isLoading: widget.controller.isLoading.value,
+            //     backgroundColor: Colors.transparent,
+            //     child: Container(
+            //       width: double.infinity,
+            //       height: 52,
+            //       decoration: BoxDecoration(
+            //         border: Border.all(color: AppColors.border),
+            //         borderRadius: BorderRadius.circular(AppSizes.radiusButton),
+            //       ),
+            //       child: Row(
+            //         mainAxisAlignment: MainAxisAlignment.center,
+            //         children: [
+            //           // Google "G" text as logo stand-in
+            //           SvgPicture.asset(
+            //             'assets/svg/google_logo.svg',
+            //             width: 22,
+            //             height: 22,
+            //           ),
+            //           const SizedBox(width: 10),
+            //           Text(
+            //             AppStrings.continueWithGoogle,
+            //             style: GoogleFonts.inter(
+            //               fontWeight: FontWeight.w500,
+            //               color: textPrimary,
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            // const SizedBox(height: AppSizes.paddingL),
             // Sign Up link
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
