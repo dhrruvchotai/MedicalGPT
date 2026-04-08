@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
 
@@ -117,7 +116,7 @@ class AboutView extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 32),
+            // const SizedBox(height: 32),
 
             // ── Technology ───────────────────────────────────
             // Padding(
@@ -131,7 +130,8 @@ class AboutView extends StatelessWidget {
             //     ],
             //   ),
             // ),
-            // const SizedBox(height: 32),
+
+            const SizedBox(height: 32),
 
             // ── Medical Disclaimer ───────────────────────────
             Padding(
@@ -139,9 +139,7 @@ class AboutView extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: AppColors.warning.withValues(
-                    alpha: isDark ? 0.12 : 0.08,
-                  ),
+                  color: AppColors.warning.withValues(alpha: isDark ? 0.12 : 0.08),
                   borderRadius: BorderRadius.circular(AppSizes.radiusCard),
                   border: Border.all(
                     color: AppColors.warning.withValues(alpha: 0.3),
@@ -161,7 +159,7 @@ class AboutView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Disclaimer',
+                            'Medical Disclaimer',
                             style: GoogleFonts.inter(
                               fontSize: 13,
                               fontWeight: FontWeight.w700,
@@ -241,14 +239,12 @@ class _AnimatedLogoState extends State<_AnimatedLogo>
       vsync: this,
       duration: const Duration(milliseconds: 800),
     );
-    _scale = Tween<double>(
-      begin: 0.7,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _ctrl, curve: Curves.elasticOut));
-    _fade = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeOut));
+    _scale = Tween<double>(begin: 0.7, end: 1.0).animate(
+      CurvedAnimation(parent: _ctrl, curve: Curves.elasticOut),
+    );
+    _fade = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _ctrl, curve: Curves.easeOut),
+    );
     _ctrl.forward();
   }
 
@@ -265,7 +261,10 @@ class _AnimatedLogoState extends State<_AnimatedLogo>
       builder: (context, child) {
         return Opacity(
           opacity: _fade.value,
-          child: Transform.scale(scale: _scale.value, child: child),
+          child: Transform.scale(
+            scale: _scale.value,
+            child: child,
+          ),
         );
       },
       child: Container(
@@ -287,7 +286,11 @@ class _AnimatedLogoState extends State<_AnimatedLogo>
           ),
         ),
         child: Center(
-          child: SvgPicture.asset('assets/svg/logo.svg', width: 48, height: 48),
+          child: SvgPicture.asset(
+            'assets/svg/logo.svg',
+            width: 48,
+            height: 48,
+          ),
         ),
       ),
     );
@@ -401,50 +404,48 @@ class _FeatureCard extends StatelessWidget {
 
 // ── Tech Chips Row ───────────────────────────────────────────────────────────
 
-class _TechChipsRow extends StatelessWidget {
-  final bool isDark;
-  const _TechChipsRow({required this.isDark});
+// class _TechChipsRow extends StatelessWidget {
+//   final bool isDark;
+//   const _TechChipsRow({required this.isDark});
 
-  @override
-  Widget build(BuildContext context) {
-    final chips = [
-      'Flutter',
-      'BioMistral-7B',
-      'TensorFlow',
-      'Python',
-      'HuggingFace',
-    ];
-    return Wrap(
-      spacing: 8,
-      runSpacing: 8,
-      children: chips
-          .map(
-            (label) => Container(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-              decoration: BoxDecoration(
-                color: isDark
-                    ? AppColors.darkSurfaceVariant
-                    : AppColors.primaryLight,
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  color: isDark
-                      ? AppColors.darkDivider
-                      : AppColors.primary.withValues(alpha: 0.15),
-                ),
-              ),
-              child: Text(
-                label,
-                style: GoogleFonts.inter(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  color: isDark
-                      ? AppColors.darkTextSecondary
-                      : AppColors.primary,
-                ),
-              ),
-            ),
-          )
-          .toList(),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     final chips = [
+//       'Flutter',
+//       'BioMistral-7B',
+//       'TensorFlow',
+//       'Python',
+//       'HuggingFace',
+//     ];
+//     return Wrap(
+//       spacing: 8,
+//       runSpacing: 8,
+//       children: chips
+//           .map(
+//             (label) => Container(
+//               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+//               decoration: BoxDecoration(
+//                 color: isDark
+//                     ? AppColors.darkSurfaceVariant
+//                     : AppColors.primaryLight,
+//                 borderRadius: BorderRadius.circular(20),
+//                 border: Border.all(
+//                   color: isDark
+//                       ? AppColors.darkDivider
+//                       : AppColors.primary.withValues(alpha: 0.15),
+//                 ),
+//               ),
+//               child: Text(
+//                 label,
+//                 style: GoogleFonts.inter(
+//                   fontSize: 12,
+//                   fontWeight: FontWeight.w500,
+//                   color: isDark ? AppColors.darkTextSecondary : AppColors.primary,
+//                 ),
+//               ),
+//             ),
+//           )
+//           .toList(),
+//     );
+//   }
+// }
