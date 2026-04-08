@@ -128,6 +128,13 @@ class AuthController extends GetxController {
     }
   }
 
-  void goToSignUp() => Get.toNamed(AppRoutes.signUp);
-  void goToSignIn() => Get.back();
+  void goToSignUp() {
+    errorMessage.value = '';
+    Get.toNamed(AppRoutes.signUp);
+  }
+
+  void goToSignIn() {
+    errorMessage.value = '';
+    Get.back();
+  }
 }

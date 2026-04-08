@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -38,22 +39,23 @@ class AttachmentPopup extends GetView<HomeController> {
           },
         ),
         _AttachItemData(
-          svgPath: 'assets/svg/icon_document.svg',
+          // svgPath: 'assets/svg/icon_document.svg',
+          iconData: LucideIcons.fileSearch,
           label: AppStrings.medicalReport,
           subtitle: 'Upload lab results or reports',
           isComingSoon: false,
           onTap: () {},
-        ),
-        _AttachItemData(
-          iconData: LucideIcons.fileSearch,
-          label: AppStrings.medicalOcr,
-          subtitle: 'Scan prescriptions & medical documents',
-          isComingSoon: false,
-          onTap: () {
-            // TODO: Implement Medical OCR
-            controller.closeAttachmentMenu();
-          },
-        ),
+        )
+        // _AttachItemData(
+        //   iconData: LucideIcons.fileSearch,
+        //   label: AppStrings.medicalOcr,
+        //   subtitle: 'Scan prescriptions & medical documents',
+        //   isComingSoon: false,
+        //   onTap: () {
+        //     // TODO: Implement Medical OCR
+        //     controller.closeAttachmentMenu();
+        //   },
+        // ),
       ];
 
       return Positioned(

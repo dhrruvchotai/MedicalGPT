@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../data/models/chat_message_model.dart';
 import '../../../data/services/chat_service.dart';
+import '../../../core/constants/app_colors.dart';
+import 'package:lucide_icons/lucide_icons.dart';
 
 class HomeController extends GetxController {
   final ChatService _chatService = Get.find<ChatService>();
@@ -105,11 +107,49 @@ class HomeController extends GetxController {
     return File(picked.path);
   }
 
+  Future<File?> _pickImageWithSource() async {
+    ImageSource? source;
+    
+    await Get.bottomSheet(
+      Container(
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        decoration: BoxDecoration(
+          color: Get.isDarkMode ? AppColors.darkSurface : Colors.white,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: Icon(LucideIcons.camera, color: Get.isDarkMode ? Colors.white70 : Colors.black87),
+              title: Text('Click Photo', style: TextStyle(color: Get.isDarkMode ? Colors.white : Colors.black87)),
+              onTap: () {
+                source = ImageSource.camera;
+                Get.back();
+              },
+            ),
+            ListTile(
+              leading: Icon(LucideIcons.image, color: Get.isDarkMode ? Colors.white70 : Colors.black87),
+              title: Text('Upload Image from Gallery', style: TextStyle(color: Get.isDarkMode ? Colors.white : Colors.black87)),
+              onTap: () {
+                source = ImageSource.gallery;
+                Get.back();
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+
+    if (source == null) return null;
+    return await _pickImage(source: source!);
+  }
+
   // ─── Skin Lesion Analysis ────────────────────────────────────────────────
 
   Future<void> analyzeSkinLesion() async {
     closeAttachmentMenu();
-    final imageFile = await _pickImage();
+    final imageFile = await _pickImageWithSource();
     if (imageFile == null) return;
 
     isLoading.value = true;
@@ -145,7 +185,7 @@ class HomeController extends GetxController {
 
   Future<void> analyzeChestXRay() async {
     closeAttachmentMenu();
-    final imageFile = await _pickImage();
+    final imageFile = await _pickImageWithSource();
     if (imageFile == null) return;
 
     isLoading.value = true;
